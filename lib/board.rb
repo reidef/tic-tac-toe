@@ -1,4 +1,12 @@
 class Board
+  WINS = [[1,2,3],
+          [4,5,6],
+          [7,8,9],
+          [1,4,7],
+          [2,5,8],
+          [3,6,9],
+          [1,5,7]]
+  
   def initialize
     @moves = { "X" => [], "O" => [] }
   end
@@ -20,5 +28,18 @@ class Board
     @moves.inject([]) do |occupied, (player, moves)|
       occupied | moves
     end
+  end
+  
+  def winner
+    over = occupied_spaces.length == 9 ? "Draw!" : false
+    ["X", "O"].inject(over) do |winner, player|
+      player_wins?(player) ? player : winner
+    end
+  end
+  
+  def player_wins?(player)
+    !WINS.select do |win|
+      win & @moves[player] == win
+    end.empty?
   end
 end

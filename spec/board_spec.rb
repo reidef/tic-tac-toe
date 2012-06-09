@@ -68,4 +68,43 @@ describe Board do
       board.occupied_spaces.should == [1, 5]
     end
   end
+  
+  describe ".winner" do
+    context "a player has won" do
+      it "returns X if they have won" do
+        board.instance_variable_set(:@moves, { "X" => [1,8,3,2], "O" => [5,7,4] } )
+        board.winner.should == "X"
+      end
+      
+      it "returns O if they have won" do
+        board.instance_variable_set(:@moves, { "X" => [5,7,4], "O" => [1,8,3,2] } )
+        board.winner.should == "O"
+      end
+    end
+    
+    context "nobody has won" do
+      it "returns false if the game contunues" do
+        board.winner.should == false
+      end
+      
+      it "returns draw if no moves remain" do
+        board.instance_variable_set(:@moves, { "X" => [5,7,3,2,9], "O" => [1,8,4,6] } )
+        board.winner.should == "Draw!"
+      end
+    end
+  end
+  
+  describe ".player_wins?" do
+    before :each do
+      board.instance_variable_set(:@moves, { "X" => [1,8,3,2], "O" => [5,7,4] } )
+    end
+    
+    it "returns true if the player wins" do
+      board.player_wins?("X").should == true
+    end
+    
+    it "returns false if the player has not won" do
+      board.player_wins?("O").should == false
+    end
+  end
 end
