@@ -43,4 +43,23 @@ class Board
       win & @moves[player] == win
     end.empty?
   end
+  
+  def possible_wins(player)
+    WINS.find do |win|
+      (win & @moves[player]).length > 1
+    end
+  end
+  
+  def available_wins(player)
+    WINS.select do |win|
+      !(win & @moves[player]).empty?
+    end
+  end
+  
+  def draw_board
+    system('clear')
+    ["X", "O"].each do |player|
+      puts "#{player} moves: #{@moves[player].join(', ')}"
+    end
+  end
 end

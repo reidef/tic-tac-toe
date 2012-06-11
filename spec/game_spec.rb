@@ -17,8 +17,8 @@ describe Game do
     end
     
     it "assigns two players" do
-      Player.should_receive(:new).ordered.with("X").and_return(player1)
-      Player.should_receive(:new).ordered.with("O").and_return(player2)
+      Player.should_receive(:new).ordered.with("X", board).and_return(player1)
+      Player.should_receive(:new).ordered.with("O", board).and_return(player2)
       game.instance_variable_get(:@player1).should == player1
       game.instance_variable_get(:@player2).should == player2
     end

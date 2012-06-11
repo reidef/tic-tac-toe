@@ -88,7 +88,7 @@ describe Board do
       end
       
       it "returns draw if no moves remain" do
-        board.instance_variable_set(:@moves, { "X" => [5,7,3,2,9], "O" => [1,8,4,6] } )
+        board.instance_variable_set(:@moves, { "X" => [5,4,3,8,1], "O" => [6,2,7,9] } )
         board.winner.should == "Draw!"
       end
     end
@@ -105,6 +105,34 @@ describe Board do
     
     it "returns false if the player has not won" do
       board.player_wins?("O").should == false
+    end
+  end
+  
+  describe ".possible_wins" do
+    before :each do
+      board.instance_variable_set(:@moves, { "X" => [1,8], "O" => [5,7] } )
+    end
+    
+    it "returns possible wins for X" do
+      board.possible_wins("X").should be_nil
+    end
+    
+    it "returns possible wins for O" do
+      board.possible_wins("O").should == [3,5,7]
+    end
+  end
+  
+  describe ".available_wins" do
+    before :each do
+      board.instance_variable_set(:@moves, { "X" => [1,8], "O" => [] } )
+    end
+    
+    it "returns possible wins for X" do
+      board.available_wins("X").should == [[1,2,3],[7,8,9],[1,4,7],[2,5,8],[1,5,9]]
+    end
+    
+    it "returns possible wins for O" do
+      board.available_wins("O").should == []
     end
   end
 end

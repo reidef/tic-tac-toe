@@ -2,8 +2,8 @@ class Game
   def initialize
     @board = Board.new
     
-    @player1 = Player.new("X")
-    @player2 = Player.new("O")
+    @player1 = Player.new("X", @board)
+    @player2 = Computer.new("O", @board)
     
     @turn = 0
   end
@@ -19,5 +19,9 @@ class Game
   
   def winner
     @board.winner
+  end
+  
+  def draw_board
+    @board.draw_board
   end
 end
