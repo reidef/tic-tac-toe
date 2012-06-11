@@ -35,6 +35,7 @@ class Computer < Player
   
   def offensive_move
     blocked_wins = @board.possible_wins(@opponent)
+    blocked_wins = [] if blocked_wins.nil?
     possible_wins = @board.possible_wins(@token)
     possible_wins = [] if possible_wins.nil?
     available_wins = possible_wins.select do |win|
