@@ -10,6 +10,7 @@ class Computer < Player
     computers_move = winning_move
     computers_move ||= defensive_move
     computers_move ||= offensive_move
+    computers_move ||= any_move
     
     @board.make_move(self, computers_move)
   end
@@ -24,27 +25,34 @@ class Computer < Player
   
   def find_wins_for(player)
     wins = @board.possible_wins(player)
-    unless wins.nil?
-      wins.inject(nil) do |block, position|
-        @board.valid_move?(position) ? position : block
-      end
-    else
-      nil
-    end
+    wins.nil? ? nil : choose_move_from(wins)
   end
   
   def offensive_move
     blocked_wins = @board.possible_wins(@opponent)
-    blocked_wins = [] if blocked_wins.nil?
     possible_wins = @board.possible_wins(@token)
+    
+    return nil if blocked_wins.nil? && possible_wins.nil?
+    
+    blocked_wins = [] if blocked_wins.nil?
     possible_wins = [] if possible_wins.nil?
+    
     available_wins = possible_wins.select do |win|
       !(blocked_wins.include?(win))
     end
     available_wins.flatten!
-    available_wins = (1..9).to_a if available_wins.empty?
-    available_wins.inject(nil) do |block, position|
-      @board.valid_move?(position) ? position : block
-    end
+    choose_move_from available_wins
+  end
+  
+  def any_move
+    return 5 if @board.valid_move?(5)
+    choose_move_from (1..9).to_a
+  end
+  
+  def choose_move_from(moves)
+    begin
+      move = moves.sample
+    end until @board.valid_move?(move)
+    return move
   end
 end
