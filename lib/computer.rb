@@ -1,6 +1,10 @@
 require './lib/player.rb'
 
 class Computer < Player
+  def initialize(token, board)
+    super
+    @opponent = token == "O" ? "X" : "O"
+  end
   
   def move
     computers_move = winning_move
@@ -11,11 +15,11 @@ class Computer < Player
   end
   
   def defensive_move
-    find_wins_for("X")
+    find_wins_for(@opponent)
   end
   
   def winning_move
-    find_wins_for("O")
+    find_wins_for(@token)
   end
   
   def find_wins_for(player)
@@ -30,8 +34,8 @@ class Computer < Player
   end
   
   def offensive_move
-    blocked_wins = @board.possible_wins("X")
-    possible_wins = @board.possible_wins("O")
+    blocked_wins = @board.possible_wins(@opponent)
+    possible_wins = @board.possible_wins(@token)
     possible_wins = [] if possible_wins.nil?
     available_wins = possible_wins.select do |win|
       !(blocked_wins.include?(win))

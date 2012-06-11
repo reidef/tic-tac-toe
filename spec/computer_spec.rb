@@ -4,6 +4,16 @@ describe Computer do
   let(:board) { double("Board") }
   let(:computer) { Computer.new("O", board) }
   
+  describe "#new" do
+    it "sets the token" do
+      computer.token.should == "O"
+    end
+    
+    it "sets the opponent" do
+      computer.instance_variable_get(:@opponent).should == "X"
+    end
+  end
+  
   describe ".defensive_move" do
     it "returns the defensive move" do
       computer.should_receive(:find_wins_for).with("X").and_return(3)

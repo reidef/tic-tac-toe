@@ -2,7 +2,7 @@
 
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each {|file| require file }
 
-game = Game.new
+game = Game.new(1)
 
 until game.winner do
   game.draw_board
