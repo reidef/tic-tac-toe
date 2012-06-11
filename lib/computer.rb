@@ -50,9 +50,8 @@ class Computer < Player
   end
   
   def choose_move_from(moves)
-    begin
-      move = moves.sample
-    end until @board.valid_move?(move)
-    return move
+    moves.shuffle.find do |move|
+      @board.valid_move?(move)
+    end
   end
 end
