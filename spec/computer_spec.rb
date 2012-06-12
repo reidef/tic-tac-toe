@@ -74,19 +74,26 @@ describe Computer do
   end
   
   describe ".any_move" do
+    it "returns 5 if it is available" do
+      board.should_receive(:valid_move?).with(5).and_return(true)
+      board.stub(:valid_move?).and_return(true)
+
+      computer.any_move.should == 5
+    end
+    
+    it "returns any open odd space" do
+      board.should_receive(:valid_move?).with(5).ordered.and_return(false)
+      computer.should_receive(:choose_move_from).with([1,3,5,7,9]).ordered.and_return(3)
+
+      computer.any_move.should == 3
+    end
+    
     it "returns any available space on the board" do
-      board.stub(:valid_move?).and_return(false)
-      board.should_receive(:valid_move?).with(2).and_return(true)
+      board.should_receive(:valid_move?).with(5).ordered.and_return(false)
+      computer.should_receive(:choose_move_from).with( [1,3,5,7,9] ).ordered.and_return(nil)
+      computer.should_receive(:choose_move_from).with( [2,4,6,8] ).ordered.and_return(2)
       
       computer.any_move.should == 2
     end
-    
-    
-      it "returns 5 if it is available" do
-        board.should_receive(:valid_move?).with(5).and_return(true)
-        board.stub(:valid_move?).and_return(true)
-
-        computer.any_move.should == 5
-      end
   end
 end

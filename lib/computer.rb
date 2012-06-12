@@ -46,7 +46,8 @@ class Computer < Player
   
   def any_move
     return 5 if @board.valid_move?(5)
-    choose_move_from (1..9).to_a
+    move = choose_move_from [1,3,5,7,9]
+    move ||= choose_move_from [2,4,6,8]
   end
   
   def choose_move_from(moves)

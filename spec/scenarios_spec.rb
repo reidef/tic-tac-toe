@@ -13,7 +13,7 @@ describe Computer do
     end
   end
   
-  describe "with moves of X: 5, 6, 1 O: 7, 4" do
+  describe "with moves of X: 5, 4, 8 O: 7, 6" do
     before :all do
       @board = Board.new
       @board.instance_variable_set(:@moves, { "X" => [5, 4, 8], "O" => [7,6] } )
