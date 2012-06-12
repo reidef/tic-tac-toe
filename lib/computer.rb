@@ -25,7 +25,7 @@ class Computer < Player
   
   def find_wins_for(player)
     wins = @board.possible_wins(player)
-    wins.nil? ? nil : choose_move_from(wins)
+    wins.empty? ? nil : choose_move_from(wins)
   end
   
   def offensive_move
@@ -50,7 +50,7 @@ class Computer < Player
   end
   
   def choose_move_from(moves)
-    moves.shuffle.find do |move|
+    moves.flatten.shuffle.find do |move|
       @board.valid_move?(move)
     end
   end

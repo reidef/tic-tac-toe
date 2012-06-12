@@ -114,11 +114,11 @@ describe Board do
     end
     
     it "returns possible wins for X" do
-      board.possible_wins("X").should be_nil
+      board.possible_wins("X").should == []
     end
     
     it "returns possible wins for O" do
-      board.possible_wins("O").should == [3,5,7]
+      board.possible_wins("O").should == [[3,5,7]]
     end
   end
   

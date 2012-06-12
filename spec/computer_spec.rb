@@ -49,7 +49,7 @@ describe Computer do
     end
     
     it "returns nil if no possible wins" do
-      board.should_receive(:possible_wins).with("X").and_return(nil)
+      board.should_receive(:possible_wins).with("X").and_return([])
       computer.defensive_move.should == nil
     end
   end

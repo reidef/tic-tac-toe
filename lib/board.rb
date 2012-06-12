@@ -45,7 +45,7 @@ class Board
   end
   
   def possible_wins(player)
-    WINS.find do |win|
+    WINS.select do |win|
       (win & @moves[player]).length > 1
     end
   end
