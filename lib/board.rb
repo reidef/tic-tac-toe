@@ -10,6 +10,7 @@ class Board
   
   def initialize
     @moves = { "X" => [], "O" => [] }
+    @display_moves = []
   end
   
   def make_move(player, move)
@@ -58,8 +59,25 @@ class Board
   
   def draw_board
     system('clear')
-    ["X", "O"].each do |player|
-      puts "#{player} moves: #{@moves[player].join(', ')}"
+    
+    @moves.each do |player, moves|
+      moves.each do |move|
+        @display_moves[move] = player
+      end
     end
+    
+    board = [[display_token(1), display_token(2), display_token(3)],
+             [display_token(4), display_token(5), display_token(6)],
+             [display_token(7), display_token(8), display_token(9)]]
+    
+    puts board[0].join(" | ")
+    puts "-" * 9
+    puts board[1].join(" | ")
+    puts "-" * 9
+    puts board[2].join(" | ")
+  end
+  
+  def display_token(position)
+    @display_moves[position] || position
   end
 end
